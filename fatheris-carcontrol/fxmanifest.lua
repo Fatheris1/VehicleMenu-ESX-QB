@@ -2,7 +2,7 @@ fx_version 'cerulean'
 games { 'gta5' }
 
 author '.fatheris'
-description 'Modern vehicle control menu'
+description 'Vehicle control menu'
 version '1.0.0'
 
 ui_page 'html/index.html'
