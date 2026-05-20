@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fatheris Vehicle Control</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="signal-hud">
+        <div id="signal-left" class="signal-arrow">
+            <svg viewBox="0 0 32 32" fill="currentColor"><path d="M20 6 L8 16 L20 26 L20 20 L28 20 L28 12 L20 12 Z"/></svg>
+        </div>
+        <div id="signal-right" class="signal-arrow">
+            <svg viewBox="0 0 32 32" fill="currentColor"><path d="M12 6 L24 16 L12 26 L12 20 L4 20 L4 12 L12 12 Z"/></svg>
+        </div>
+    </div>
+
+    <div id="app" style="display: none;">
+
+        <div class="top-bar">
+            <span id="veh-model" class="tb-model">—</span>
+
+            <div class="tb-plate"><span id="veh-plate">——</span></div>
+            <div class="tb-sep"></div>
+            <span id="date" class="tb-text">Mon, Jan 01</span>
+            <div class="tb-sep"></div>
+            <span id="clock" class="tb-text tb-time">00:00</span>
+            <div class="tb-sep"></div>
+            <span id="engine-temp" class="tb-text">--°C</span>
+            <div class="tb-sep"></div>
+
+            <div id="hazard" class="hazard-btn" onclick="action('toggleHazard')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="12" height="12">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                    <line x1="12" y1="9" x2="12" y2="13"/>
+                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+                <span>HAZARD</span>
+            </div>
+        </div>
+
+        <div class="bottom-bar">
+            <div class="control-group">
+                <div class="group-label">STATUS</div>
+                <div class="items">
+
+                    <div id="engine" class="item" onclick="action('toggleEngine')">
+                        <img src="img/ignition.png" class="item-img" alt="Engine">
+                        <small>ENGINE</small>
+                    </div>
+
+
+
+                    <div id="seatbelt" class="item" onclick="action('toggleSeatbelt')">
+                        <img src="img/seatFrontLeft.png" class="item-img" alt="Seatbelt">
+                        <small>SEATBELT</small>
+                    </div>
+
+                    <div id="cruise" class="item" onclick="action('toggleCruise')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="item-svg">
+                            <path d="M4 15 A8 8 0 0 1 20 15"/>
+                            <line x1="4"  y1="15" x2="5.5" y2="15"/>
+                            <line x1="20" y1="15" x2="18.5" y2="15"/>
+                            <line x1="12" y1="7"  x2="12"   y2="8.5"/>
+                            <line x1="12" y1="15" x2="17" y2="10"/>
+                            <circle cx="12" cy="15" r="1.4" fill="currentColor" stroke="none"/>
+                        </svg>
+                        <small>CRUISE</small>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div id="doors-group" class="control-group">
+                <div class="group-label">DOORS</div>
+                <div class="items">
+
+                    <div id="door-0" class="item square" onclick="doorAction(0)">
+                        <img src="img/doorFrontLeft.png" class="item-img" alt="FL">
+                        <span>FL</span>
+                    </div>
+
+                    <div id="door-1" class="item square" onclick="doorAction(1)">
+                        <img src="img/doorFrontRight.png" class="item-img" alt="FR">
+                        <span>FR</span>
+                    </div>
+
+                    <div id="door-2" class="item square" onclick="doorAction(2)">
+                        <img src="img/doorRearLeft.png" class="item-img" alt="RL">
+                        <span>RL</span>
+                    </div>
+
+                    <div id="door-3" class="item square" onclick="doorAction(3)">
+                        <img src="img/doorRearRight.png" class="item-img" alt="RR">
+                        <span>RR</span>
+                    </div>
+
+                    <div id="door-4" class="item square" onclick="doorAction(4)">
+                        <img src="img/frontHood.png" class="item-img" alt="Hood">
+                        <span>HOOD</span>
+                    </div>
+
+                    <div id="door-5" class="item square" onclick="doorAction(5)">
+                        <img src="img/rearHood.png" class="item-img" alt="Trunk">
+                        <span>TRUNK</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div id="windows-group" class="control-group">
+                <div class="group-label">WINDOWS</div>
+                <div class="items">
+
+                    <div id="window-0" class="item square" onclick="windowAction(0)">
+                        <img src="img/windowFrontLeft.png" class="item-img" alt="FL">
+                        <span>FL</span>
+                    </div>
+
+                    <div id="window-1" class="item square" onclick="windowAction(1)">
+                        <img src="img/windowFrontRight.png" class="item-img" alt="FR">
+                        <span>FR</span>
+                    </div>
+
+                    <div id="window-2" class="item square" onclick="windowAction(2)">
+                        <img src="img/windowRearLeft.png" class="item-img" alt="RL">
+                        <span>RL</span>
+                    </div>
+
+                    <div id="window-3" class="item square" onclick="windowAction(3)">
+                        <img src="img/windowRearRight.png" class="item-img" alt="RR">
+                        <span>RR</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div id="neons-group" class="control-group">
+                <div class="group-label">NEONS</div>
+                <div class="items">
+
+                    <div id="neon-0" class="item square neon-item" onclick="neonAction(0)">
+                        <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-linecap="round" class="item-svg">
+                            <rect x="6" y="9" width="16" height="10" rx="3" stroke-width="1.5"/>
+                            <line x1="3" y1="11" x2="3" y2="17" stroke-width="2.5"/>
+                        </svg>
+                        <span>LEFT</span>
+                    </div>
+
+                    <div id="neon-1" class="item square neon-item" onclick="neonAction(1)">
+                        <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-linecap="round" class="item-svg">
+                            <rect x="6" y="9" width="16" height="10" rx="3" stroke-width="1.5"/>
+                            <line x1="25" y1="11" x2="25" y2="17" stroke-width="2.5"/>
+                        </svg>
+                        <span>RIGHT</span>
+                    </div>
+
+                    <div id="neon-2" class="item square neon-item" onclick="neonAction(2)">
+                        <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-linecap="round" class="item-svg">
+                            <rect x="6" y="9" width="16" height="10" rx="3" stroke-width="1.5"/>
+                            <line x1="8" y1="6" x2="20" y2="6" stroke-width="2.5"/>
+                        </svg>
+                        <span>FRONT</span>
+                    </div>
+
+                    <div id="neon-3" class="item square neon-item" onclick="neonAction(3)">
+                        <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-linecap="round" class="item-svg">
+                            <rect x="6" y="9" width="16" height="10" rx="3" stroke-width="1.5"/>
+                            <line x1="8" y1="22" x2="20" y2="22" stroke-width="2.5"/>
+                        </svg>
+                        <span>REAR</span>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
