@@ -3,6 +3,9 @@ Vehicle control menu. Minimal dark UI with real-time engine temperature, turn si
 
 <img width="1980" height="1080" alt="vehicle menu" src="https://github.com/user-attachments/assets/c431a214-0038-47c6-819d-43649c90a4ab" />
 
+## Config
+<img width="2928" height="3452" alt="fh-carmenu-config" src="https://github.com/user-attachments/assets/1a9428cb-e7b6-4b44-ac95-83969d7803a6" />
+
 
 ## Installation
 
